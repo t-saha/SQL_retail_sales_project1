@@ -5,6 +5,7 @@ A quick analysis of a retail sales dataset with MySQL.
 A table 'retail_sales' is created where the data that has columns such as date, time, customer id, gender, age, etc.**
 
 _-- create table_
+```sql
 DROP TABLE IF EXISTS  retail_sales;
 CREATE TABLE  retail_sales
  ( 
@@ -20,6 +21,7 @@ CREATE TABLE  retail_sales
 	 cogs FLOAT,
 	 total_sale FLOAT
   );
+```
 
 -- 
 ALTER TABLE retail_sales
