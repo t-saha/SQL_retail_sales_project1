@@ -5,8 +5,8 @@ A quick analysis of a retail sales dataset with MySQL.
 A database is created with a defined schema where the dataset will be stored.
 A table 'retail_sales' is created where the data that has columns such as date, time, customer id, gender, age, etc.**
 
-_-- create table_
 ```sql
+-- create table
 DROP TABLE IF EXISTS  retail_sales;
 CREATE TABLE  retail_sales
  ( 
@@ -29,27 +29,27 @@ RENAME COLUMN quantiy TO quantity;https://github.com/t-saha/SQL_retail_sales_pro
 
 **2. Data Exploration - A quick glance is taken at the dataset to check the length of the dataset and study its columns.**
 ```sql
-_-- see first 5 rows_
+-- see first 5 rows
 SELECT * FROM retail_sales
 LIMIT 5;
 
-_-- get total length of the dataset_
+-- get total length of the dataset
 SELECT 
 	COUNT(*)
 FROM retail_sales;
 
-_-- How many sales records and unique customers do we have?_
+-- How many sales records and unique customers do we have?
 SELECT COUNT(*) as total_sales FROM retail_sales;
 
 SELECT COUNT(DISTINCT customer_id) as total_customers FROM retail_sales;
 
-_-- How many unique categories do we have?_
+-- How many unique categories do we have?
 SELECT COUNT(DISTINCT category) FROM retail_sales;
 ```
 
 **3. Data Cleaning - The dataset is checked for null values and they are removed, if any.**
 ```sql
-_-- Data cleaning_
+-- Data cleaning
 SELECT * FROM retail_sales
 WHERE 
 	transactions_id IS NULL
@@ -70,13 +70,13 @@ WHERE
 ```
     
 **4. Data Analysis - Data related to monthly and yearly sales, orders, shifts are analyzed.**
-_-- see first 5 rows_
-_-- Q1. All columns for sales from november 5 2022_
+-- see first 5 rows
+-- Q1. All columns for sales from november 5 2022
 SELECT *
 FROM retail_sales
 WHERE sale_date = '2022-11-05';
 
-_-- Q2. Retrieve all transactions from 'Clothing' category and the quanitty sold when its more than 10 in Nov-2022_
+-- Q2. Retrieve all transactions from 'Clothing' category and the quanitty sold when its more than 10 in Nov-2022
 SELECT *
 FROM retail_sales
 WHERE category = 'Clothing'
@@ -85,24 +85,24 @@ WHERE category = 'Clothing'
       AND 
       quantity >=4;
       
-_-- Q3. Calculate total_sales for each category_
+-- Q3. Calculate total_sales for each category
 SELECT category, 
 		SUM(total_sale) AS total_sales,
         COUNT(*) as total_orders
 FROM retail_sales
 GROUP BY category;
 
-_-- Q4. Average age of customers from beauty category_
+-- Q4. Average age of customers from beauty category
 SELECT category, ROUND(AVG(age),0) as avg_age
 FROM retail_sales
 WHERE category='Beauty';
 
-_-- Q5. All transactions where total_sale is greater than 1000_
+-- Q5. All transactions where total_sale is greater than 1000
 SELECT *
 FROM retail_sales
 WHERE total_sale>1000;
 
-_-- Q6. Total transactions made by each gender in each category_
+-- Q6. Total transactions made by each gender in each category
 SELECT category,
 	   gender, 
 	   COUNT(transactionS_id) as total_trans
@@ -110,7 +110,7 @@ FROM retail_sales
 GROUP BY category, gender
 ORDER BY 1;
 
-_-- Q7. Calculate average sales for each month. Find the best selling month in each year_
+-- Q7. Calculate average sales for each month. Find the best selling month in each year
 
 SELECT *
 FROM (
@@ -128,7 +128,7 @@ FROM (
 	) AS t2
 WHERE sales_rank=1;
 
-_-- Q8. Find the top 5 customers based on the highest total sales_
+-- Q8. Find the top 5 customers based on the highest total sales
 SELECT customer_id,
 	   SUM(total_sale) as net_sale
 FROM retail_sales
@@ -136,19 +136,19 @@ GROUP BY customer_id
 ORDER BY net_sale DESC
 LIMIT 5;
 
-_-- Q9. Find the number of unique customers who purchased items from each category_
+-- Q9. Find the number of unique customers who purchased items from each category
 SELECT COUNT(DISTINCT customer_id),
 	   category
 FROM retail_sales
 GROUP BY 2;
 
-_-- Find customers who purchased from all 3 categories_
+-- Find customers who purchased from all 3 categories
 SELECT customer_id
 FROM retail_sales
 GROUP BY customer_id
 HAVING COUNT(DISTINCT category) = 3; 
 
-_-- Q10. Create each shift and the number of orders (Example: Morning <12, Afternoon between 12-17,  Evening >17)_
+-- Q10. Create each shift and the number of orders (Example: Morning <12, Afternoon between 12-17,  Evening >17)
 SELECT *,
 	CASE
     WHEN HOUR(sale_time) <12 THEN 'Morning'
