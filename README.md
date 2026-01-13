@@ -29,9 +29,6 @@ RENAME COLUMN quantiy TO quantity;https://github.com/t-saha/SQL_retail_sales_pro
 
 **2. Data Exploration - A quick glance is taken at the dataset to check the length of the dataset and study its columns.**
 ```sql
--- see first 5 rows
-SELECT * FROM retail_sales
-LIMIT 5;
 
 -- get total length of the dataset
 SELECT 
@@ -70,6 +67,7 @@ WHERE
 ```
     
 **4. Data Analysis - Data related to monthly and yearly sales, orders, shifts are analyzed.**
+```sql
 -- see first 5 rows
 -- Q1. All columns for sales from november 5 2022
 SELECT *
