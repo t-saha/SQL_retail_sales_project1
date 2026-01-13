@@ -1,7 +1,8 @@
 # SQL_retail_sales_project1
 A quick analysis of a retail sales dataset with MySQL.
 
-**1. Database Setup - A database is created with a defined schema where the dataset will be stored.
+**1. Database Setup
+A database is created with a defined schema where the dataset will be stored.
 A table 'retail_sales' is created where the data that has columns such as date, time, customer id, gender, age, etc.**
 
 _-- create table_
@@ -21,13 +22,13 @@ CREATE TABLE  retail_sales
 	 cogs FLOAT,
 	 total_sale FLOAT
   );
-```
 
--- 
 ALTER TABLE retail_sales
 RENAME COLUMN quantiy TO quantity;https://github.com/t-saha/SQL_retail_sales_project1/blob/main/README.md
+```
 
 **2. Data Exploration - A quick glance is taken at the dataset to check the length of the dataset and study its columns.**
+```sql
 _-- see first 5 rows_
 SELECT * FROM retail_sales
 LIMIT 5;
@@ -44,8 +45,10 @@ SELECT COUNT(DISTINCT customer_id) as total_customers FROM retail_sales;
 
 _-- How many unique categories do we have?_
 SELECT COUNT(DISTINCT category) FROM retail_sales;
-**3. Data Cleaning - The dataset is checked for null values and they are removed, if any.**
+```
 
+**3. Data Cleaning - The dataset is checked for null values and they are removed, if any.**
+```sql
 _-- Data cleaning_
 SELECT * FROM retail_sales
 WHERE 
@@ -64,9 +67,10 @@ WHERE
     cogs IS NULL
     OR
     total_sale IS NULL;
+```
     
 **4. Data Analysis - Data related to monthly and yearly sales, orders, shifts are analyzed.**
-
+_-- see first 5 rows_
 _-- Q1. All columns for sales from november 5 2022_
 SELECT *
 FROM retail_sales
@@ -154,6 +158,7 @@ SELECT *,
     COUNT(transactionS_id) as num_of_orders
 FROM retail_sales
 GROUP BY shift
+```
 
 
 _-- End of project 1_
